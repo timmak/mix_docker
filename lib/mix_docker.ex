@@ -21,10 +21,11 @@ defmodule MixDocker do
 
     Mix.shell.info "Docker image #{image(:build)} has been successfully created"
   end
-
+  require IEx
   def release(args) do
+    args_keywords = parse_args(args)
     project = Mix.Project.get.project
-    app     = project[:app]
+    app     = Keyword.get(args_keywords, :app, project[:app])
     version = project[:version]
 
     cid = "mix_docker-#{:rand.uniform(1000000)}"
@@ -151,5 +152,10 @@ defmodule MixDocker do
 
   defp system!(cmd, args) do
     {_, 0} = system(cmd, args)
+  end
+
+  defp parse_args(args) do
+    {options, _, _} = OptionParser.parse(args, switches: [name: :string])
+    options
   end
 end

@@ -16,7 +16,7 @@ defmodule MixDocker do
 
   def build(args) do
     with_dockerfile @dockerfile_build, fn ->
-      docker :build, @dockerfile_build, image(:build), args
+      docker :build, @dockerfile_build, image(:build)
     end
 
     Mix.shell.info "Docker image #{image(:build)} has been successfully created"

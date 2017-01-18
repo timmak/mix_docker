@@ -21,7 +21,7 @@ defmodule MixDocker do
 
     Mix.shell.info "Docker image #{image(:build)} has been successfully created"
   end
-  require IEx
+  
   def release(args) do
     args_keywords = parse_args(args)
       |> IO.inspect

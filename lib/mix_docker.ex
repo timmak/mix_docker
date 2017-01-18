@@ -24,6 +24,7 @@ defmodule MixDocker do
   require IEx
   def release(args) do
     args_keywords = parse_args(args)
+      |> IO.inspect
     project = Mix.Project.get.project
     app     = Keyword.get(args_keywords, :app, project[:app])
     version = project[:version]
@@ -35,7 +36,7 @@ defmodule MixDocker do
       docker :create, cid, image(:build)
       docker :cp, cid, "/opt/app/_build/prod/rel/#{app}/releases/#{version}/#{app}.tar.gz", "#{app}.tar.gz"
       docker :rm, cid
-      docker :build, @dockerfile_release, image(:release), args
+      docker :build, @dockerfile_release, image(:release)
     end
 
     Mix.shell.info "Docker image #{image(:release)} has been successfully created"

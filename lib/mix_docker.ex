@@ -97,7 +97,7 @@ defmodule MixDocker do
   end
 
   defp docker(:build, dockerfile, tag, args) do
-    system! "docker", ["build", "-f", dockerfile, "-t", tag] ++ args ++ ["."]
+    system! "docker", ["build", "-f", dockerfile, "-t", tag] ++ ["."]
   end
 
   defp docker(:create, name, image) do
